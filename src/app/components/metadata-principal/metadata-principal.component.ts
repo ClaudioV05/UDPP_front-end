@@ -8,12 +8,10 @@ import { MetadataService } from 'src/app/services/metadata.service';
   styleUrls: ['./metadata-principal.component.css']
 })
 
-export class ProductListComponent implements OnInit {
+export class MetadataPrincipalComponent implements OnInit {
 
-  metadata: Metadata = { id: 0, data: "" };
-
-  mTitle: Metadata = this.metadata;
-  mDescription: Metadata = this.metadata;
+  mTitle: Metadata = { id: 0, data: "" };
+  mDescription: Metadata = { id: 0, data: "" };
   architectures: Metadata[] = [];
   databases: Metadata[] = [];
   databasesEngineer: Metadata[] = [];
@@ -32,7 +30,7 @@ export class ProductListComponent implements OnInit {
     this.metadataForms();
   }
 
-  metadataTitle = () => this.metadataService.getMetadataTitle().subscribe(data => { this.mTitle = data; });
+  metadataTitle = () => this.metadataService.getMetadataTitle().subscribe(data => { this.mTitle = data.metadata; });
   metadataDescription = () => this.metadataService.getMetadataDescription().subscribe(data => { this.mDescription = data; });
   metadataArchitectures = () => this.metadataService.getMetadataArchitectures().subscribe(data => { this.architectures = data; });
   metadataDatabases = () => this.metadataService.getMetadataDatabases().subscribe(data => { this.databases = data; });

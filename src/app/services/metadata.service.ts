@@ -31,12 +31,12 @@ export class MetadataService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getMetadataTitle(): Observable<Metadata> {
-    return this.httpClient.get<IMetadata>(this.baseUrlMetadataApplicationTitle).pipe(response => response);
+  getMetadataTitle(): Observable<GetEmbedded> {
+    return this.httpClient.get<GetEmbedded>(this.baseUrlMetadataApplicationTitle).pipe(map(response => response));
   }
 
   getMetadataDescription(): Observable<Metadata> {
-    return this.httpClient.get<IMetadata>(this.baseUrlMetadataApplicationDescription).pipe(response => response);
+    return this.httpClient.get<Metadata>(this.baseUrlMetadataApplicationDescription);
   }
 
   getMetadataArchitectures(): Observable<Metadata[]> {
@@ -60,9 +60,8 @@ export class MetadataService {
   }
 }
 
-interface IMetadata {
-  id: number;
-  data: string;
+interface GetEmbedded {
+  metadata: Metadata
 }
 
 interface IMetadataList {
