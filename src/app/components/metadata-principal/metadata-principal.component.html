@@ -1,0 +1,30 @@
+Title >> {{ mTitle.data }}
+<hr>
+
+Description >> {{ mDescription.data }}
+<hr>
+
+<ul *ngFor="let architecture of architectures">
+    <li>{{ architecture.data }}</li>
+</ul>
+<hr>
+
+<ul *ngFor="let database of databases">
+    <li>{{ database.data }}</li>
+</ul>
+<hr>
+
+<ul *ngFor="let databaseEngineer of databasesEngineer">
+    <li>{{ databaseEngineer.data }}</li>
+</ul>
+<hr>
+
+<ul *ngFor="let developmentEnvironment of developmentEnvironments">
+    <li>{{ developmentEnvironment.data }}</li>
+</ul>
+<hr>
+
+<ul *ngFor="let form of forms">
+    <li>{{ form.data }}</li>
+</ul>
+<hr>
