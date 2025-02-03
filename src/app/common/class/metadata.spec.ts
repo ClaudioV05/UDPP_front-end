@@ -1,4 +1,4 @@
-import { Metadata } from './metadata';
+import { Metadata } from '../class/metadata';
 
 describe('Metadata', () => {
   it('should create an instance', () => {

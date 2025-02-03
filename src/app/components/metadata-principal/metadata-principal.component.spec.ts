@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProductListComponent } from './metadata-principal.component';
+import { MetadataPrincipalComponent } from './metadata-principal.component';
 
-describe('ProductListComponent', () => {
-  let component: ProductListComponent;
-  let fixture: ComponentFixture<ProductListComponent>;
+describe('MetadataPrincipalComponent', () => {
+  let component: MetadataPrincipalComponent;
+  let fixture: ComponentFixture<MetadataPrincipalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProductListComponent ]
+      declarations: [ MetadataPrincipalComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductListComponent);
+    fixture = TestBed.createComponent(MetadataPrincipalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

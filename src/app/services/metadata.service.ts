@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Metadata } from '../common/metadata';
 import { map } from 'rxjs/operators';
+import { ApiResponse } from '../common/interface/apiresponse';
 
 @Injectable({
   providedIn: 'root'
@@ -13,57 +13,49 @@ export class MetadataService {
   };
 
   private readonly _basePath = 'http://localhost:3000/api/udppparameters/';
-  private readonly _applicationTitle = "applicationTitle";
-  private readonly _applicationDescription = "applicationDescription";
-  private readonly _architectures = "architectures";
-  private readonly _databases = "databases";
-  private readonly _databasesEngineer = "databasesEngineer";
-  private readonly _developmentEnvironment = "developmentEnvironment";
-  private readonly _form = "form";
+  private readonly _urlTitle = "applicationTitle";
+  private readonly _urlDescription = "applicationDescription";
+  private readonly _urlArchitectures = "architectures";
+  private readonly _urlDatabases = "databases";
+  private readonly _urlDatabasesEngineer = "databasesEngineer";
+  private readonly _urlDevelopmentEnvironment = "developmentEnvironment";
+  private readonly _urlForm = "form";
 
-  private baseUrlMetadataApplicationTitle = `${this._basePath}${this._applicationTitle}`;
-  private baseUrlMetadataApplicationDescription = `${this._basePath}${this._applicationDescription}`;
-  private baseUrlMetadata_architectures = `${this._basePath}${this._architectures}`;
-  private baseUrlMetadata_databases = `${this._basePath}${this._databases}`;
-  private baseUrlMetadata_databasesEngineer = `${this._basePath}${this._databasesEngineer}`;
-  private baseUrlMetadata_developmentEnvironment = `${this._basePath}${this._developmentEnvironment}`;
-  private baseUrlMetadata_form = `${this._basePath}${this._form}`;
+  private baseUrlMetadata_title = `${this._basePath}${this._urlTitle}`;
+  private baseUrlMetadata_Description = `${this._basePath}${this._urlDescription}`;
+  private baseUrlMetadata_architectures = `${this._basePath}${this._urlArchitectures}`;
+  private baseUrlMetadata_databases = `${this._basePath}${this._urlDatabases}`;
+  private baseUrlMetadata_databasesEngineer = `${this._basePath}${this._urlDatabasesEngineer}`;
+  private baseUrlMetadata_developmentEnvironment = `${this._basePath}${this._urlDevelopmentEnvironment}`;
+  private baseUrlMetadata_form = `${this._basePath}${this._urlForm}`;
 
   constructor(private httpClient: HttpClient) { }
 
-  getMetadataTitle(): Observable<GetEmbedded> {
-    return this.httpClient.get<GetEmbedded>(this.baseUrlMetadataApplicationTitle).pipe(map(response => response));
+  getMetadataTitle(): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(this.baseUrlMetadata_title);
   }
 
-  getMetadataDescription(): Observable<Metadata> {
-    return this.httpClient.get<Metadata>(this.baseUrlMetadataApplicationDescription);
+  getMetadataDescription(): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(this.baseUrlMetadata_Description);
   }
 
-  getMetadataArchitectures(): Observable<Metadata[]> {
-    return this.httpClient.get<Metadata[]>(this.baseUrlMetadata_architectures);//.pipe(map(response => response));
+  getMetadataArchitectures(): Observable<ApiResponse[]> {
+    return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_architectures);
   }
 
-  getMetadataDatabases(): Observable<Metadata[]> {
-    return this.httpClient.get<Metadata[]>(this.baseUrlMetadata_databases);//.pipe(map(response => response));
+  getMetadataDatabases(): Observable<ApiResponse[]> {
+    return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_databases)
   }
 
-  getMetadataDatabasesEngineer(): Observable<Metadata[]> {
-    return this.httpClient.get<Metadata[]>(this.baseUrlMetadata_databasesEngineer);//.pipe(map(response => response));
+  getMetadataDatabasesEngineer(): Observable<ApiResponse[]> {
+    return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_databasesEngineer)
   }
 
-  getMetadataDevelopmentEnvironment(): Observable<Metadata[]> {
-    return this.httpClient.get<Metadata[]>(this.baseUrlMetadata_developmentEnvironment);//.pipe(map(response => response));
+  getMetadataDevelopmentEnvironment(): Observable<ApiResponse[]> {
+    return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_developmentEnvironment)
   }
 
-  getMetadataForm(): Observable<Metadata[]> {
-    return this.httpClient.get<Metadata[]>(this.baseUrlMetadata_form);//.pipe(map(response => response));
+  getMetadataForm(): Observable<ApiResponse[]> {
+    return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_form);//.pipe(map(response => response));
   }
-}
-
-interface GetEmbedded {
-  metadata: Metadata
-}
-
-interface IMetadataList {
-  metadata: Metadata[];
 }

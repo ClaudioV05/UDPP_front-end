@@ -1,30 +1,70 @@
-Title >> {{ mTitle.data }}
+Title >> {{ title.data }}
 <hr>
 
-Description >> {{ mDescription.data }}
+Description >> {{ description.data }}
 <hr>
 
-<ul *ngFor="let architecture of architectures">
-    <li>{{ architecture.data }}</li>
-</ul>
-<hr>
+<div *ngIf="architectures.length > 0">
+    <ul>
+      <li *ngFor="let architecture of architectures">
+        <strong>{{ architecture.metadata.id }}:</strong> {{ architecture.metadata.data }}
+      </li>
+    </ul>
+  </div>
+  
+  <div *ngIf="architectures.length === 0">
+    <p>No data available.</p>
+  </div>
+  <hr>
 
-<ul *ngFor="let database of databases">
-    <li>{{ database.data }}</li>
-</ul>
-<hr>
+  <div *ngIf="databases.length > 0">
+    <ul>
+      <li *ngFor="let database of databases">
+        <strong>{{ database.metadata.id }}:</strong> {{ database.metadata.data }}
+      </li>
+    </ul>
+  </div>
+  
+  <div *ngIf="databases.length === 0">
+    <p>No data available.</p>
+  </div>
+  <hr>
 
-<ul *ngFor="let databaseEngineer of databasesEngineer">
-    <li>{{ databaseEngineer.data }}</li>
-</ul>
-<hr>
+  <div *ngIf="databasesEngineer.length > 0">
+    <ul>
+      <li *ngFor="let databaseEngineer of databasesEngineer">
+        <strong>{{ databaseEngineer.metadata.id }}:</strong> {{ databaseEngineer.metadata.data }}
+      </li>
+    </ul>
+  </div>
+  
+  <div *ngIf="databasesEngineer.length === 0">
+    <p>No data available.</p>
+  </div>
+  <hr>
 
-<ul *ngFor="let developmentEnvironment of developmentEnvironments">
-    <li>{{ developmentEnvironment.data }}</li>
-</ul>
-<hr>
+  <div *ngIf="developmentEnvironments.length > 0">
+    <ul>
+      <li *ngFor="let developmentEnvironment of developmentEnvironments">
+        <strong>{{ developmentEnvironment.metadata.id }}:</strong> {{ developmentEnvironment.metadata.data }}
+      </li>
+    </ul>
+  </div>
+  
+  <div *ngIf="developmentEnvironments.length === 0">
+    <p>No data available.</p>
+  </div>
+  <hr>
 
-<ul *ngFor="let form of forms">
-    <li>{{ form.data }}</li>
-</ul>
-<hr>
+  <div *ngIf="forms.length > 0">
+    <ul>
+      <li *ngFor="let form of forms">
+        <strong>{{ form.metadata.id }}:</strong> {{ form.metadata.data }}
+      </li>
+    </ul>
+  </div>
+  
+  <div *ngIf="forms.length === 0">
+    <p>No data available.</p>
+  </div>
+  <hr>

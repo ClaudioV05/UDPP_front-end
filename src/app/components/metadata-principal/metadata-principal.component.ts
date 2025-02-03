@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Metadata } from 'src/app/common/metadata';
+import { Metadata } from 'src/app/common/class/metadata';
+import { ApiResponse } from 'src/app/common/interface/apiresponse';
 import { MetadataService } from 'src/app/services/metadata.service';
 
 @Component({
@@ -10,13 +11,13 @@ import { MetadataService } from 'src/app/services/metadata.service';
 
 export class MetadataPrincipalComponent implements OnInit {
 
-  mTitle: Metadata = { id: 0, data: "" };
-  mDescription: Metadata = { id: 0, data: "" };
-  architectures: Metadata[] = [];
-  databases: Metadata[] = [];
-  databasesEngineer: Metadata[] = [];
-  developmentEnvironments: Metadata[] = [];
-  forms: Metadata[] = [];
+  title: Metadata = { id: 0, data: "" };
+  description: Metadata = { id: 0, data: "" };
+  architectures: ApiResponse[] = [];
+  databases: ApiResponse[] = [];
+  databasesEngineer: ApiResponse[] = [];
+  developmentEnvironments: ApiResponse[] = [];
+  forms: ApiResponse[] = [];
 
   constructor(private metadataService: MetadataService) { }
 
@@ -30,11 +31,52 @@ export class MetadataPrincipalComponent implements OnInit {
     this.metadataForms();
   }
 
-  metadataTitle = () => this.metadataService.getMetadataTitle().subscribe(data => { this.mTitle = data.metadata; });
-  metadataDescription = () => this.metadataService.getMetadataDescription().subscribe(data => { this.mDescription = data; });
-  metadataArchitectures = () => this.metadataService.getMetadataArchitectures().subscribe(data => { this.architectures = data; });
-  metadataDatabases = () => this.metadataService.getMetadataDatabases().subscribe(data => { this.databases = data; });
-  metadataDatabasesEngineer = () => this.metadataService.getMetadataDatabasesEngineer().subscribe(data => { this.databasesEngineer = data; });
-  metadataDevelopmentEnvironments = () => this.metadataService.getMetadataDevelopmentEnvironment().subscribe(data => { this.developmentEnvironments = data; });
-  metadataForms = () => this.metadataService.getMetadataDevelopmentEnvironment().subscribe(data => { this.forms = data; });
+  metadataTitle() {
+    this.metadataService.getMetadataTitle().subscribe(
+      (response) => {
+        this.title = response.metadata;
+      })
+  }
+
+  metadataDescription() {
+    this.metadataService.getMetadataDescription().subscribe(
+      (data) => {
+        this.description = data.metadata;
+      })
+  }
+
+  metadataArchitectures() {
+    this.metadataService.getMetadataArchitectures().subscribe(
+      (response) => {
+        this.architectures = response;
+      })
+  }
+
+  metadataDatabases() {
+    this.metadataService.getMetadataDatabases().subscribe(
+      (response) => {
+        this.databases = response;
+      })
+  }
+
+  metadataDatabasesEngineer() {
+    this.metadataService.getMetadataDatabasesEngineer().subscribe(
+      (response) => {
+        this.databasesEngineer = response;
+      })
+  }
+
+  metadataDevelopmentEnvironments() {
+    this.metadataService.getMetadataDevelopmentEnvironment().subscribe(
+      (response) => {
+        this.developmentEnvironments = response;
+      })
+  }
+
+  metadataForms() {
+    this.metadataService.getMetadataDevelopmentEnvironment().subscribe(
+      (response) => {
+        this.forms = response;
+      })
+  }
 }
