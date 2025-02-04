@@ -1,4 +1,4 @@
-<form [formGroup]="metadataFormGroup">
+<form [formGroup]="metadataFormGroup" (ngSubmit)="this.formSubmit()">
   <div class="container text-center">
 
     <div formGroupName="metadata">
@@ -19,9 +19,8 @@
       <div class="row">
         <div class="col-12 mb-1">
           <div class="input-group">
-            <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
-              aria-label="Upload" />
-            <button class="btn btn-primary" type="submit">
+            <input type="file" class="form-control" id="inputGroupFile04" aria-label="Upload" />
+            <button type="submit" class="btn btn-primary">
               Create
             </button>
           </div>
@@ -32,8 +31,7 @@
 
         <div class="col-2">
           <div *ngIf="architectures.length > 0">
-            <select class="form-select form-control-sm" [(ngModel)]="selectedOptionDropDownList"
-              formControlName="architecture">
+            <select class="form-select form-control-sm" [(ngModel)]="architecturesDdl" formControlName="architecture">
               <option *ngFor="let architecture of architectures" [value]="architecture.metadata.id">
                 {{ this.itemDescriptionFromList(architecture.metadata.id, architecture.metadata.data) }}
               </option>
@@ -43,8 +41,7 @@
 
         <div class="col-2">
           <div *ngIf="databases.length > 0">
-            <select class="form-select form-control-sm" [(ngModel)]="selectedOptionDropDownList"
-              formControlName="database">
+            <select class="form-select form-control-sm" [(ngModel)]="databasesDdl" formControlName="database">
               <option *ngFor="let database of databases" [value]="database.metadata.id">
                 {{ this.itemDescriptionFromList(database.metadata.id, database.metadata.data) }}
               </option>
@@ -54,7 +51,7 @@
 
         <div class="col-2">
           <div *ngIf="databasesEngineer.length > 0">
-            <select class="form-select form-control-sm" [(ngModel)]="selectedOptionDropDownList"
+            <select class="form-select form-control-sm" [(ngModel)]="databasesEngineerDdl"
               formControlName="databaseEngineer">
               <option *ngFor="let databaseEngineer of databasesEngineer" [value]="databaseEngineer.metadata.id">
                 {{ this.itemDescriptionFromList(databaseEngineer.metadata.id, databaseEngineer.metadata.data) }}
@@ -65,7 +62,7 @@
 
         <div class="col-2">
           <div *ngIf="databases.length > 0">
-            <select class="form-select form-control-sm" [(ngModel)]="selectedOptionDropDownList"
+            <select class="form-select form-control-sm" [(ngModel)]="developmentEnvironmentsDdl"
               formControlName="developmentEnvironment">
               <option *ngFor="let developmentEnvironment of developmentEnvironments"
                 [value]="developmentEnvironment.metadata.id">
@@ -78,7 +75,7 @@
 
         <div class="col-2">
           <div *ngIf="databases.length > 0">
-            <select class="form-select form-control-sm" [(ngModel)]="selectedOptionDropDownList" formControlName="form">
+            <select class="form-select form-control-sm" [(ngModel)]="formsDdl" formControlName="form">
               <option *ngFor="let form of forms" [value]="form.metadata.id">
                 {{ this.itemDescriptionFromList(form.metadata.id,
                 form.metadata.data) }}

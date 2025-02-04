@@ -21,7 +21,11 @@ export class MetadataComponent implements OnInit {
   developmentEnvironments: ApiResponse[] = [];
   forms: ApiResponse[] = [];
 
-  selectedOptionDropDownList: string = ""; 
+  architecturesDdl: string = "";
+  databasesDdl: string = "";
+  databasesEngineerDdl: string = "";
+  developmentEnvironmentsDdl: string = "";
+  formsDdl: string = "";
 
   constructor(private metadataService: MetadataService,
               private formBuilder: FormBuilder) { }
@@ -35,8 +39,9 @@ export class MetadataComponent implements OnInit {
     this.metadataDevelopmentEnvironments();
     this.metadataForms();
     this.createForm();
-
-    this.selectedOptionDropDownList = "0"
+    
+    this.initializeSelectedOptionDropDownList();
+    
   }
 
   metadataTitle() {
@@ -103,10 +108,18 @@ export class MetadataComponent implements OnInit {
         form: ['', Validators.required]
       })
     });
-
-    //this.metadataFormGroup.get('architecture')?.setValue('option0');
   }
 
- 
+  formSubmit() {
+    console.log("Form here");
+    console.log(this.metadataFormGroup.get("metadata")?.value);
+  }
 
+  initializeSelectedOptionDropDownList() {
+    this.architecturesDdl = "0"
+    this.databasesDdl = "0"
+    this.databasesEngineerDdl = "0"
+    this.developmentEnvironmentsDdl = "0"
+    this.formsDdl = "0"
+  }
 }
