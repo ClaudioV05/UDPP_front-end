@@ -15,7 +15,7 @@
 
           <div
             *ngIf="metadataFormDescription?.invalid && (metadataFormDescription?.dirty || metadataFormDescription?.touched)"
-            class="alert alert-danger mt-1">
+            class="alert alert-danger mt-1" role="alert">
 
             <div *ngIf="metadataFormDescription?.errors?.['required']">
               Description is required
@@ -102,7 +102,7 @@
 
         <div
           *ngIf="metadataFormArchitecture?.invalid && (metadataFormArchitecture?.dirty || metadataFormArchitecture?.touched)"
-          class="alert alert-danger mt-1">
+          class="alert alert-danger mt-1" role="alert">
 
           <div *ngIf="metadataFormArchitecture?.errors?.['min']">
             Architecture invalid.
