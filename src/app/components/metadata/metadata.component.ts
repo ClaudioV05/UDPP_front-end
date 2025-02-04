@@ -31,6 +31,13 @@ export class MetadataComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.loadMetadata();
+    this.createForm();
+
+    this.initializeSelectedOptionDropDownList();
+  }
+
+  loadMetadata(){
     this.metadataTitle();
     this.metadataDescription();
     this.metadataArchitectures();
@@ -38,10 +45,6 @@ export class MetadataComponent implements OnInit {
     this.metadataDatabasesEngineer();
     this.metadataDevelopmentEnvironments();
     this.metadataForms();
-    this.createForm();
-
-    this.initializeSelectedOptionDropDownList();
-
   }
 
   metadataTitle() {
@@ -107,17 +110,17 @@ export class MetadataComponent implements OnInit {
         fDatabase: new FormControl('', [Validators.required, Validators.min(1)]),
         fDatabaseEngineer: new FormControl('', [Validators.required, Validators.min(1)]),
         fDevelopmentEnvironment: new FormControl('', [Validators.required, Validators.min(1)]),
-        fForm: new FormControl('', [Validators.required, Validators.min(1)]),
+        fForm: new FormControl('', [Validators.required, Validators.min(1)])
       })
     });
   }
 
-  get metadataFormDescription() { return this.metadataFormGroup.get('metadata.fDescription'); }
-  get metadataFormArchitecture() { return this.metadataFormGroup.get('metadataItemList.fArchitecture'); }
-  get metadataFormDatabase() { return this.metadataFormGroup.get('metadataItemList.fDatabase'); }
-  get metadataFormDatabaseEngineer() { return this.metadataFormGroup.get('metadataItemList.fDatabaseEngineer'); }
-  get metadataFormDevelopmentEnvironment() { return this.metadataFormGroup.get('metadataItemList.fDevelopmentEnvironment'); }
-  get metadataFormForm() { return this.metadataFormGroup.get('metadataItemList.fForm'); }
+  get getMetadataFormGroupDescription() { return this.metadataFormGroup.get('metadata.fDescription'); }
+  get getMetadataFormGroupArchitecture() { return this.metadataFormGroup.get('metadataItemList.fArchitecture'); }
+  get getMetadataFormGroupDatabase() { return this.metadataFormGroup.get('metadataItemList.fDatabase'); }
+  get getMetadataFormGroupDatabaseEngineer() { return this.metadataFormGroup.get('metadataItemList.fDatabaseEngineer'); }
+  get getMetadataFormGroupDevelopmentEnvironment() { return this.metadataFormGroup.get('metadataItemList.fDevelopmentEnvironment'); }
+  get getMetadataFormGroupForm() { return this.metadataFormGroup.get('metadataItemList.fForm'); }
 
   metadataFormSubmit() {
     console.log("Form here");
