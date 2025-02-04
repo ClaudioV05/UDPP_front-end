@@ -1,70 +1,95 @@
-Title >> {{ title.data }}
-<hr>
+<form [formGroup]="metadataFormGroup">
+  <div class="container text-center">
 
-Description >> {{ description.data }}
-<hr>
+    <div formGroupName="metadata">
 
-<div *ngIf="architectures.length > 0">
-    <ul>
-      <li *ngFor="let architecture of architectures">
-        <strong>{{ architecture.metadata.id }}:</strong> {{ architecture.metadata.data }}
-      </li>
-    </ul>
-  </div>
-  
-  <div *ngIf="architectures.length === 0">
-    <p>No data available.</p>
-  </div>
-  <hr>
+      <div class="row align-items-start">
+        <div class="col-12 mb-1 text-uppercase fs-5 fw-medium">
+          {{title.data}}
+        </div>
+      </div>
 
-  <div *ngIf="databases.length > 0">
-    <ul>
-      <li *ngFor="let database of databases">
-        <strong>{{ database.metadata.id }}:</strong> {{ database.metadata.data }}
-      </li>
-    </ul>
-  </div>
-  
-  <div *ngIf="databases.length === 0">
-    <p>No data available.</p>
-  </div>
-  <hr>
+      <div class="row">
+        <div class="col-12 mb-1">
+          <textarea class="form-control" [ngModel]="description.data" formControlName="description"
+            rows="15"></textarea>
+        </div>
+      </div>
 
-  <div *ngIf="databasesEngineer.length > 0">
-    <ul>
-      <li *ngFor="let databaseEngineer of databasesEngineer">
-        <strong>{{ databaseEngineer.metadata.id }}:</strong> {{ databaseEngineer.metadata.data }}
-      </li>
-    </ul>
-  </div>
-  
-  <div *ngIf="databasesEngineer.length === 0">
-    <p>No data available.</p>
-  </div>
-  <hr>
+      <div class="row">
+        <div class="col-12 mb-1">
+          <div class="input-group">
+            <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
+              aria-label="Upload" />
+            <button class="btn btn-primary" type="submit">
+              Create
+            </button>
+          </div>
+        </div>
+      </div>
 
-  <div *ngIf="developmentEnvironments.length > 0">
-    <ul>
-      <li *ngFor="let developmentEnvironment of developmentEnvironments">
-        <strong>{{ developmentEnvironment.metadata.id }}:</strong> {{ developmentEnvironment.metadata.data }}
-      </li>
-    </ul>
-  </div>
-  
-  <div *ngIf="developmentEnvironments.length === 0">
-    <p>No data available.</p>
-  </div>
-  <hr>
+      <div class="row">
 
-  <div *ngIf="forms.length > 0">
-    <ul>
-      <li *ngFor="let form of forms">
-        <strong>{{ form.metadata.id }}:</strong> {{ form.metadata.data }}
-      </li>
-    </ul>
+        <div class="col-2">
+          <div *ngIf="architectures.length > 0">
+            <select class="form-select form-control-sm" [(ngModel)]="selectedOptionDropDownList"
+              formControlName="architecture">
+              <option *ngFor="let architecture of architectures" [value]="architecture.metadata.id">
+                {{ this.itemDescriptionFromList(architecture.metadata.id, architecture.metadata.data) }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-2">
+          <div *ngIf="databases.length > 0">
+            <select class="form-select form-control-sm" [(ngModel)]="selectedOptionDropDownList"
+              formControlName="database">
+              <option *ngFor="let database of databases" [value]="database.metadata.id">
+                {{ this.itemDescriptionFromList(database.metadata.id, database.metadata.data) }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-2">
+          <div *ngIf="databasesEngineer.length > 0">
+            <select class="form-select form-control-sm" [(ngModel)]="selectedOptionDropDownList"
+              formControlName="databaseEngineer">
+              <option *ngFor="let databaseEngineer of databasesEngineer" [value]="databaseEngineer.metadata.id">
+                {{ this.itemDescriptionFromList(databaseEngineer.metadata.id, databaseEngineer.metadata.data) }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-2">
+          <div *ngIf="databases.length > 0">
+            <select class="form-select form-control-sm" [(ngModel)]="selectedOptionDropDownList"
+              formControlName="developmentEnvironment">
+              <option *ngFor="let developmentEnvironment of developmentEnvironments"
+                [value]="developmentEnvironment.metadata.id">
+                {{ this.itemDescriptionFromList(developmentEnvironment.metadata.id,
+                developmentEnvironment.metadata.data) }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-2">
+          <div *ngIf="databases.length > 0">
+            <select class="form-select form-control-sm" [(ngModel)]="selectedOptionDropDownList" formControlName="form">
+              <option *ngFor="let form of forms" [value]="form.metadata.id">
+                {{ this.itemDescriptionFromList(form.metadata.id,
+                form.metadata.data) }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
   </div>
-  
-  <div *ngIf="forms.length === 0">
-    <p>No data available.</p>
-  </div>
-  <hr>
+
+</form>

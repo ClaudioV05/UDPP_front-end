@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Metadata } from 'src/app/common/class/metadata';
 import { ApiResponse } from 'src/app/common/interface/apiresponse';
 import { MetadataService } from 'src/app/services/metadata.service';
 
 @Component({
-  selector: 'app-metadata-principal',
+  selector: 'app-metadata',
   templateUrl: './metadata.component.html',
   styleUrls: ['./metadata.component.css']
 })
 
 export class MetadataComponent implements OnInit {
 
+  metadataFormGroup!: FormGroup;
   title: Metadata = { id: 0, data: "" };
   description: Metadata = { id: 0, data: "" };
   architectures: ApiResponse[] = [];
@@ -19,7 +21,10 @@ export class MetadataComponent implements OnInit {
   developmentEnvironments: ApiResponse[] = [];
   forms: ApiResponse[] = [];
 
-  constructor(private metadataService: MetadataService) { }
+  selectedOptionDropDownList: string = ""; 
+
+  constructor(private metadataService: MetadataService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.metadataTitle();
@@ -29,54 +34,79 @@ export class MetadataComponent implements OnInit {
     this.metadataDatabasesEngineer();
     this.metadataDevelopmentEnvironments();
     this.metadataForms();
+    this.createForm();
+
+    this.selectedOptionDropDownList = "0"
   }
 
   metadataTitle() {
-    this.metadataService.getMetadataTitle().subscribe(
+    this.metadataService.getMetadataTitle$().subscribe(
       (response) => {
         this.title = response.metadata;
       })
   }
 
   metadataDescription() {
-    this.metadataService.getMetadataDescription().subscribe(
-      (data) => {
-        this.description = data.metadata;
+    this.metadataService.getMetadataDescription$().subscribe(
+      (response) => {
+        this.description = response.metadata;
       })
   }
 
   metadataArchitectures() {
-    this.metadataService.getMetadataArchitectures().subscribe(
+    this.metadataService.getMetadataArchitectures$().subscribe(
       (response) => {
         this.architectures = response;
       })
   }
 
   metadataDatabases() {
-    this.metadataService.getMetadataDatabases().subscribe(
+    this.metadataService.getMetadataDatabases$().subscribe(
       (response) => {
         this.databases = response;
       })
   }
 
   metadataDatabasesEngineer() {
-    this.metadataService.getMetadataDatabasesEngineer().subscribe(
+    this.metadataService.getMetadataDatabasesEngineer$().subscribe(
       (response) => {
         this.databasesEngineer = response;
       })
   }
 
   metadataDevelopmentEnvironments() {
-    this.metadataService.getMetadataDevelopmentEnvironment().subscribe(
+    this.metadataService.getMetadataDevelopmentEnvironment$().subscribe(
       (response) => {
         this.developmentEnvironments = response;
       })
   }
 
   metadataForms() {
-    this.metadataService.getMetadataDevelopmentEnvironment().subscribe(
+    this.metadataService.getMetadataDevelopmentEnvironment$().subscribe(
       (response) => {
         this.forms = response;
       })
   }
+
+  itemDescriptionFromList(itemId: number, itemData: string): string {
+    return itemId === 0 ? "ITEMS" : itemData;
+  }
+
+  createForm() {
+    this.metadataFormGroup = this.formBuilder.group({
+      metadata: this.formBuilder.group({
+        description: ['', Validators.required],
+        architecture: ['', Validators.required],
+        database: ['', Validators.required],
+        databaseEngineer: ['', Validators.required],
+        developmentEnvironment: ['', Validators.required],
+        form: ['', Validators.required]
+      })
+    });
+
+    //this.metadataFormGroup.get('architecture')?.setValue('option0');
+  }
+
+ 
+
 }

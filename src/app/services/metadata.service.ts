@@ -8,6 +8,7 @@ import { ApiResponse } from '../common/interface/apiresponse';
   providedIn: 'root'
 })
 export class MetadataService {
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -31,31 +32,31 @@ export class MetadataService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getMetadataTitle(): Observable<ApiResponse> {
+  getMetadataTitle$(): Observable<ApiResponse> {
     return this.httpClient.get<ApiResponse>(this.baseUrlMetadata_title);
   }
 
-  getMetadataDescription(): Observable<ApiResponse> {
+  getMetadataDescription$(): Observable<ApiResponse> {
     return this.httpClient.get<ApiResponse>(this.baseUrlMetadata_Description);
   }
 
-  getMetadataArchitectures(): Observable<ApiResponse[]> {
-    return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_architectures).pipe(map(response => response));
+  getMetadataArchitectures$(): Observable<ApiResponse[]> {
+    return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_architectures);
   }
 
-  getMetadataDatabases(): Observable<ApiResponse[]> {
+  getMetadataDatabases$(): Observable<ApiResponse[]> {
     return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_databases)
   }
 
-  getMetadataDatabasesEngineer(): Observable<ApiResponse[]> {
+  getMetadataDatabasesEngineer$(): Observable<ApiResponse[]> {
     return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_databasesEngineer)
   }
 
-  getMetadataDevelopmentEnvironment(): Observable<ApiResponse[]> {
+  getMetadataDevelopmentEnvironment$(): Observable<ApiResponse[]> {
     return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_developmentEnvironment)
   }
 
-  getMetadataForm(): Observable<ApiResponse[]> {
+  getMetadataForm$(): Observable<ApiResponse[]> {
     return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_form);
   }
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MetadataComponent } from './components/metadata/metadata.component';
@@ -17,7 +18,8 @@ import { MetafieldComponent } from './components/metafield/metafield.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [MetadataService],
   bootstrap: [AppComponent]
