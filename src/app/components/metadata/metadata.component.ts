@@ -28,7 +28,7 @@ export class MetadataComponent implements OnInit {
   formsDdl: string = "";
 
   constructor(private metadataService: MetadataService,
-              private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.metadataTitle();
@@ -39,9 +39,9 @@ export class MetadataComponent implements OnInit {
     this.metadataDevelopmentEnvironments();
     this.metadataForms();
     this.createForm();
-    
+
     this.initializeSelectedOptionDropDownList();
-    
+
   }
 
   metadataTitle() {
@@ -101,6 +101,8 @@ export class MetadataComponent implements OnInit {
     this.metadataFormGroup = this.formBuilder.group({
       metadata: this.formBuilder.group({
         description: ['', Validators.required],
+      }),
+      metadataItemList: this.formBuilder.group({
         architecture: ['', Validators.required],
         database: ['', Validators.required],
         databaseEngineer: ['', Validators.required],
@@ -113,6 +115,7 @@ export class MetadataComponent implements OnInit {
   formSubmit() {
     console.log("Form here");
     console.log(this.metadataFormGroup.get("metadata")?.value);
+    console.log(this.metadataFormGroup.get("metadataItemList")?.value);
   }
 
   initializeSelectedOptionDropDownList() {

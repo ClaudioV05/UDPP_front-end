@@ -2,7 +2,6 @@
   <div class="container text-center">
 
     <div formGroupName="metadata">
-
       <div class="row align-items-start">
         <div class="col-12 mb-1 text-uppercase fs-5 fw-medium">
           {{title.data}}
@@ -15,18 +14,20 @@
             rows="15"></textarea>
         </div>
       </div>
+    </div>
 
-      <div class="row">
-        <div class="col-12 mb-1">
-          <div class="input-group">
-            <input type="file" class="form-control" id="inputGroupFile04" aria-label="Upload" />
-            <button type="submit" class="btn btn-primary">
-              Create
-            </button>
-          </div>
+    <div class="row">
+      <div class="col-12 mb-1">
+        <div class="input-group">
+          <input type="file" class="form-control" id="inputGroupFile04" aria-label="Upload" />
+          <button type="submit" class="btn btn-primary">
+            Create
+          </button>
         </div>
       </div>
+    </div>
 
+    <div formGroupName="metadataItemList">
       <div class="row">
 
         <div class="col-2">
