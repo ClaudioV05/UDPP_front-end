@@ -1,7 +1,7 @@
-<form [formGroup]="metadataFormGroup" (ngSubmit)="this.formSubmit()">
+<form [formGroup]="metadataFormGroup" (ngSubmit)="this.metadataFormSubmit()">
   <div class="container text-center">
 
-    <div formGroupName="metadata">
+    <div formGroupName="metadata" class="form-area">
       <div class="row align-items-start">
         <div class="col-12 mb-1 text-uppercase fs-5 fw-medium">
           {{title.data}}
@@ -10,8 +10,11 @@
 
       <div class="row">
         <div class="col-12 mb-1">
-          <textarea class="form-control" [ngModel]="description.data" formControlName="description"
+          <textarea class="form-control" [ngModel]="description.data" formControlName="fDescription"
             rows="15"></textarea>
+
+           
+
         </div>
       </div>
     </div>
@@ -27,12 +30,12 @@
       </div>
     </div>
 
-    <div formGroupName="metadataItemList">
+    <div formGroupName="metadataItemList" class="form-area">
       <div class="row">
 
         <div class="col-2">
           <div *ngIf="architectures.length > 0">
-            <select class="form-select form-control-sm" [(ngModel)]="architecturesDdl" formControlName="architecture">
+            <select class="form-select form-control-sm" [(ngModel)]="architecturesDdl" formControlName="fArchitecture">
               <option *ngFor="let architecture of architectures" [value]="architecture.metadata.id">
                 {{ this.itemDescriptionFromList(architecture.metadata.id, architecture.metadata.data) }}
               </option>
@@ -42,7 +45,7 @@
 
         <div class="col-2">
           <div *ngIf="databases.length > 0">
-            <select class="form-select form-control-sm" [(ngModel)]="databasesDdl" formControlName="database">
+            <select class="form-select form-control-sm" [(ngModel)]="databasesDdl" formControlName="fDatabase">
               <option *ngFor="let database of databases" [value]="database.metadata.id">
                 {{ this.itemDescriptionFromList(database.metadata.id, database.metadata.data) }}
               </option>
@@ -53,7 +56,7 @@
         <div class="col-2">
           <div *ngIf="databasesEngineer.length > 0">
             <select class="form-select form-control-sm" [(ngModel)]="databasesEngineerDdl"
-              formControlName="databaseEngineer">
+              formControlName="fDatabaseEngineer">
               <option *ngFor="let databaseEngineer of databasesEngineer" [value]="databaseEngineer.metadata.id">
                 {{ this.itemDescriptionFromList(databaseEngineer.metadata.id, databaseEngineer.metadata.data) }}
               </option>
@@ -64,7 +67,7 @@
         <div class="col-2">
           <div *ngIf="databases.length > 0">
             <select class="form-select form-control-sm" [(ngModel)]="developmentEnvironmentsDdl"
-              formControlName="developmentEnvironment">
+              formControlName="fDevelopmentEnvironment">
               <option *ngFor="let developmentEnvironment of developmentEnvironments"
                 [value]="developmentEnvironment.metadata.id">
                 {{ this.itemDescriptionFromList(developmentEnvironment.metadata.id,
@@ -76,7 +79,7 @@
 
         <div class="col-2">
           <div *ngIf="databases.length > 0">
-            <select class="form-select form-control-sm" [(ngModel)]="formsDdl" formControlName="form">
+            <select class="form-select form-control-sm" [(ngModel)]="formsDdl" formControlName="fForm">
               <option *ngFor="let form of forms" [value]="form.metadata.id">
                 {{ this.itemDescriptionFromList(form.metadata.id,
                 form.metadata.data) }}

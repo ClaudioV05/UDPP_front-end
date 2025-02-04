@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Metadata } from 'src/app/common/class/metadata';
 import { ApiResponse } from 'src/app/common/interface/apiresponse';
 import { MetadataService } from 'src/app/services/metadata.service';
@@ -100,19 +100,26 @@ export class MetadataComponent implements OnInit {
   createForm() {
     this.metadataFormGroup = this.formBuilder.group({
       metadata: this.formBuilder.group({
-        description: ['', Validators.required],
+        fDescription: new FormControl('', [Validators.required, Validators.minLength(2)]),
       }),
       metadataItemList: this.formBuilder.group({
-        architecture: ['', Validators.required],
-        database: ['', Validators.required],
-        databaseEngineer: ['', Validators.required],
-        developmentEnvironment: ['', Validators.required],
-        form: ['', Validators.required]
+        fArchitecture: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        fDatabase: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        fDatabaseEngineer: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        fDevelopmentEnvironment: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        fForm: new FormControl('', [Validators.required, Validators.minLength(2)]),
       })
     });
   }
 
-  formSubmit() {
+  get metadataFormDescription() { return this.metadataFormGroup.get('metadata.description'); }
+  get metadataFormArchitecture() { return this.metadataFormGroup.get('metadataItemList.architecture'); }
+  get metadataFormDatabase() { return this.metadataFormGroup.get('metadataItemList.database'); }
+  get metadataFormDatabaseEngineer() { return this.metadataFormGroup.get('metadataItemList.databaseEngineer'); }
+  get metadataFormDevelopmentEnvironment() { return this.metadataFormGroup.get('metadataItemList.developmentEnvironment'); }
+  get metadataFormForm() { return this.metadataFormGroup.get('metadataItemList.form'); }
+
+  metadataFormSubmit() {
     console.log("Form here");
     console.log(this.metadataFormGroup.get("metadata")?.value);
     console.log(this.metadataFormGroup.get("metadataItemList")?.value);
