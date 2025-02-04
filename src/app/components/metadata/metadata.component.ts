@@ -112,15 +112,20 @@ export class MetadataComponent implements OnInit {
     });
   }
 
-  get metadataFormDescription() { return this.metadataFormGroup.get('metadata.description'); }
-  get metadataFormArchitecture() { return this.metadataFormGroup.get('metadataItemList.architecture'); }
-  get metadataFormDatabase() { return this.metadataFormGroup.get('metadataItemList.database'); }
-  get metadataFormDatabaseEngineer() { return this.metadataFormGroup.get('metadataItemList.databaseEngineer'); }
-  get metadataFormDevelopmentEnvironment() { return this.metadataFormGroup.get('metadataItemList.developmentEnvironment'); }
-  get metadataFormForm() { return this.metadataFormGroup.get('metadataItemList.form'); }
+  get metadataFormDescription() { return this.metadataFormGroup.get('metadata.fDescription'); }
+  get metadataFormArchitecture() { return this.metadataFormGroup.get('metadataItemList.fArchitecture'); }
+  get metadataFormDatabase() { return this.metadataFormGroup.get('metadataItemList.fDatabase'); }
+  get metadataFormDatabaseEngineer() { return this.metadataFormGroup.get('metadataItemList.fDatabaseEngineer'); }
+  get metadataFormDevelopmentEnvironment() { return this.metadataFormGroup.get('metadataItemList.fDevelopmentEnvironment'); }
+  get metadataFormForm() { return this.metadataFormGroup.get('metadataItemList.fForm'); }
 
   metadataFormSubmit() {
     console.log("Form here");
+
+    if (this.metadataFormGroup.invalid) {
+      this.metadataFormGroup.markAllAsTouched();
+    }
+    
     console.log(this.metadataFormGroup.get("metadata")?.value);
     console.log(this.metadataFormGroup.get("metadataItemList")?.value);
   }
