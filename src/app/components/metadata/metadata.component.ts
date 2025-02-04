@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Metadata } from 'src/app/common/class/metadata';
 import { ApiResponse } from 'src/app/common/interface/apiresponse';
@@ -103,11 +103,11 @@ export class MetadataComponent implements OnInit {
         fDescription: new FormControl('', [Validators.required, Validators.minLength(2)]),
       }),
       metadataItemList: this.formBuilder.group({
-        fArchitecture: new FormControl('', [Validators.required, Validators.minLength(2)]),
-        fDatabase: new FormControl('', [Validators.required, Validators.minLength(2)]),
-        fDatabaseEngineer: new FormControl('', [Validators.required, Validators.minLength(2)]),
-        fDevelopmentEnvironment: new FormControl('', [Validators.required, Validators.minLength(2)]),
-        fForm: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        fArchitecture: new FormControl('', [Validators.required, Validators.min(1)]),
+        fDatabase: new FormControl('', [Validators.required, Validators.min(1)]),
+        fDatabaseEngineer: new FormControl('', [Validators.required, Validators.min(1)]),
+        fDevelopmentEnvironment: new FormControl('', [Validators.required, Validators.min(1)]),
+        fForm: new FormControl('', [Validators.required, Validators.min(1)]),
       })
     });
   }
@@ -124,10 +124,10 @@ export class MetadataComponent implements OnInit {
 
     if (this.metadataFormGroup.invalid) {
       this.metadataFormGroup.markAllAsTouched();
+    } else {
+      console.log(this.metadataFormGroup.get("metadata")?.value);
+      console.log(this.metadataFormGroup.get("metadataItemList")?.value);
     }
-    
-    console.log(this.metadataFormGroup.get("metadata")?.value);
-    console.log(this.metadataFormGroup.get("metadataItemList")?.value);
   }
 
   initializeSelectedOptionDropDownList() {
