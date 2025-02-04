@@ -5,11 +5,11 @@ import { MetadataService } from 'src/app/services/metadata.service';
 
 @Component({
   selector: 'app-metadata-principal',
-  templateUrl: './metadata-principal.component.html',
-  styleUrls: ['./metadata-principal.component.css']
+  templateUrl: './metadata.component.html',
+  styleUrls: ['./metadata.component.css']
 })
 
-export class MetadataPrincipalComponent implements OnInit {
+export class MetadataComponent implements OnInit {
 
   title: Metadata = { id: 0, data: "" };
   description: Metadata = { id: 0, data: "" };

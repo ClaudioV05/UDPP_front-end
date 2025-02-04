@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { MetadataPrincipalComponent } from './components/metadata-principal/metadata-principal.component';
+import { MetadataComponent } from './components/metadata/metadata.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MetadataService } from './services/metadata.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MetadataPrincipalComponent
+    MetadataComponent
   ],
   imports: [
     BrowserModule,

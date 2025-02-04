@@ -40,7 +40,7 @@ export class MetadataService {
   }
 
   getMetadataArchitectures(): Observable<ApiResponse[]> {
-    return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_architectures);
+    return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_architectures).pipe(map(response => response));
   }
 
   getMetadataDatabases(): Observable<ApiResponse[]> {
@@ -56,6 +56,6 @@ export class MetadataService {
   }
 
   getMetadataForm(): Observable<ApiResponse[]> {
-    return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_form);//.pipe(map(response => response));
+    return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_form);
   }
 }
