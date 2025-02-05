@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Metadata } from 'src/app/common/class/metadata';
+import { MetadataForm } from 'src/app/common/class/metadataform';
 import { ApiResponse } from 'src/app/common/interface/apiresponse';
 import { MetadataService } from 'src/app/services/metadata.service';
 
@@ -35,11 +36,11 @@ export class MetadataComponent implements OnInit {
   constructor(
     private metadataService: MetadataService,
     private formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadMetadata();
-    this.createForm();
+    this.createMetadataForm();
 
     this.initializeSelectedOptionDropDownList();
   }
@@ -102,60 +103,43 @@ export class MetadataComponent implements OnInit {
       });
   }
 
+  sendMetadata(file: File): void {
+    this.metadataService
+      .sendMetadata(new MetadataForm('', '', 0, 0, 0, 0, 0, file))
+      .subscribe({
+        next: (response) => {
+          console.log('File uploaded successfully', response);
+        },
+        error: (error) => {
+          console.error('Error uploading file', error);
+        },
+      });
+  }
+
   itemDescriptionFromList(itemId: number, itemData: string): string {
     return itemId === 0 ? 'ITEMS' : itemData;
   }
 
-  createForm() {
-    this.metadataFormGroup = this.formBuilder.group({
-      metadata: this.formBuilder.group({
-        fDescription: new FormControl('', [
-          Validators.required,
-          Validators.minLength(2),
-        ]),
+  createMetadataForm() {
+    this.metadataFormGroup = this.formBuilder.group({ metadata: this.formBuilder.group({
+      description: new FormControl('', [ Validators.required, Validators.minLength(2)]),
       }),
       metadataItemList: this.formBuilder.group({
-        fArchitecture: new FormControl('', [
-          Validators.required,
-          Validators.min(1),
-        ]),
-        fDatabase: new FormControl('', [
-          Validators.required,
-          Validators.min(1),
-        ]),
-        fDatabaseEngineer: new FormControl('', [
-          Validators.required,
-          Validators.min(1),
-        ]),
-        fDevelopmentEnvironment: new FormControl('', [
-          Validators.required,
-          Validators.min(1),
-        ]),
-        fForm: new FormControl('', [Validators.required, Validators.min(1)]),
+        architecture: new FormControl('', [ Validators.required, Validators.min(1)]),
+        database: new FormControl('', [ Validators.required, Validators.min(1)]),
+        databaseEngineer: new FormControl('', [ Validators.required, Validators.min(1)]),
+        developmentEnvironment: new FormControl('', [Validators.required, Validators.min(1)]),
+        form: new FormControl('', [Validators.required, Validators.min(1)]),
       }),
     });
   }
 
-  get getMetadataFormGroupDescription() {
-    return this.metadataFormGroup.get('metadata.fDescription');
-  }
-  get getMetadataFormGroupArchitecture() {
-    return this.metadataFormGroup.get('metadataItemList.fArchitecture');
-  }
-  get getMetadataFormGroupDatabase() {
-    return this.metadataFormGroup.get('metadataItemList.fDatabase');
-  }
-  get getMetadataFormGroupDatabaseEngineer() {
-    return this.metadataFormGroup.get('metadataItemList.fDatabaseEngineer');
-  }
-  get getMetadataFormGroupDevelopmentEnvironment() {
-    return this.metadataFormGroup.get(
-      'metadataItemList.fDevelopmentEnvironment'
-    );
-  }
-  get getMetadataFormGroupForm() {
-    return this.metadataFormGroup.get('metadataItemList.fForm');
-  }
+  get getDescription() { return this.metadataFormGroup.get('metadata.description'); }
+  get getArchitecture() { return this.metadataFormGroup.get('metadataItemList.architecture'); }
+  get getDatabase() { return this.metadataFormGroup.get('metadataItemList.database'); }
+  get getDatabaseEngineer() { return this.metadataFormGroup.get('metadataItemList.databaseEngineer'); }
+  get getDevelopmentEnvironment() { return this.metadataFormGroup.get( 'metadataItemList.developmentEnvironment'); }
+  get getForm() { return this.metadataFormGroup.get('metadataItemList.form'); }
 
   metadataFormSubmit() {
     console.log('Form here');

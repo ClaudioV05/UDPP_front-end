@@ -5,7 +5,8 @@ export class MetadataForm {
                 public database: number = 0,
                 public databaseEngineer: number = 0,
                 public developmentEnvironment: number = 0,
-                public form: number = 0
+                public form: number = 0,
+                public data: File
     ) {
     }
 }
