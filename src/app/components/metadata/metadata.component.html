@@ -91,6 +91,7 @@
         <div *ngIf="startValidation">
           <div *ngIf="getDescription?.invalid && (getDescription?.dirty || getDescription?.touched)"
             class="alert alert-danger mt-1" role="alert">
+            <div *ngIf="getDescription?.errors?.['textContainsInicialValue']">Description is invalid.</div>
             <div *ngIf="getDescription?.errors?.['required'] || getDescription?.errors?.['notOnlyWhitespace']">
               Description is empty.</div>
             <div *ngIf="getDescription?.errors?.['minlength']">Description must be at least 2 characters

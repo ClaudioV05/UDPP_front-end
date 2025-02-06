@@ -122,7 +122,8 @@ export class MetadataComponent implements OnInit {
           [
             Validators.required,
             Validators.minLength(2),
-            MetadataValidation.notOnlyWhitespace
+            MetadataValidation.notOnlyWhitespace,
+            MetadataValidation.textContainsInicialValue
           ]),
       }),
       metadataItemList: this.formBuilder.group({
@@ -130,19 +131,19 @@ export class MetadataComponent implements OnInit {
           [
             Validators.required, Validators.min(1)
           ]),
-          metadataFormDatabase: new FormControl('',
+        metadataFormDatabase: new FormControl('',
           [
             Validators.required, Validators.min(1)
           ]),
-          metadataFormDatabaseEngineer: new FormControl('',
+        metadataFormDatabaseEngineer: new FormControl('',
           [
             Validators.required, Validators.min(1)
           ]),
-          metadataFormDevelopmentEnvironment: new FormControl('',
+        metadataFormDevelopmentEnvironment: new FormControl('',
           [
             Validators.required, Validators.min(1)
           ]),
-          metadataFormForm: new FormControl('',
+        metadataFormForm: new FormControl('',
           [
             Validators.required,
             Validators.min(1)
