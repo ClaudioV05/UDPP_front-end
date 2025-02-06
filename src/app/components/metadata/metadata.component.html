@@ -10,8 +10,8 @@
 
       <div class="row">
         <div class="col-12 mb-1">
-          <textarea class="form-control" [ngModel]="description.data" [value]="fileContent"
-            formControlName="fDescription" rows="15"></textarea>
+          <textarea class="form-control" [ngModel]="fileContent" [(ngModel)]="description.data"
+            formControlName="metadataFormDescription" rows="15"></textarea>
         </div>
       </div>
     </div>
@@ -32,7 +32,8 @@
 
         <div class="col-2">
           <div *ngIf="architectures.length > 0">
-            <select class="form-select form-control-sm" [(ngModel)]="architecturesDdl" formControlName="fArchitecture">
+            <select class="form-select form-control-sm" [(ngModel)]="architecturesDdl"
+              formControlName="metadataFormArchitecture">
               <option *ngFor="let architecture of architectures" [value]="architecture.metadata.id">
                 {{ this.itemDescriptionFromList(architecture.metadata.id, architecture.metadata.data) }}
               </option>
@@ -42,7 +43,8 @@
 
         <div class="col-2">
           <div *ngIf="databases.length > 0">
-            <select class="form-select form-control-sm" [(ngModel)]="databasesDdl" formControlName="fDatabase">
+            <select class="form-select form-control-sm" [(ngModel)]="databasesDdl"
+              formControlName="metadataFormDatabase">
               <option *ngFor="let database of databases" [value]="database.metadata.id">
                 {{ this.itemDescriptionFromList(database.metadata.id, database.metadata.data) }}
               </option>
@@ -53,7 +55,7 @@
         <div class="col-2">
           <div *ngIf="databasesEngineer.length > 0">
             <select class="form-select form-control-sm" [(ngModel)]="databasesEngineerDdl"
-              formControlName="fDatabaseEngineer">
+              formControlName="metadataFormDatabaseEngineer">
               <option *ngFor="let databaseEngineer of databasesEngineer" [value]="databaseEngineer.metadata.id">
                 {{ this.itemDescriptionFromList(databaseEngineer.metadata.id, databaseEngineer.metadata.data) }}
               </option>
@@ -64,7 +66,7 @@
         <div class="col-2">
           <div *ngIf="databases.length > 0">
             <select class="form-select form-control-sm" [(ngModel)]="developmentEnvironmentsDdl"
-              formControlName="fDevelopmentEnvironment">
+              formControlName="metadataFormDevelopmentEnvironment">
               <option *ngFor="let developmentEnvironment of developmentEnvironments"
                 [value]="developmentEnvironment.metadata.id">
                 {{ this.itemDescriptionFromList(developmentEnvironment.metadata.id,
@@ -76,7 +78,7 @@
 
         <div class="col-2">
           <div *ngIf="databases.length > 0">
-            <select class="form-select form-control-sm" [(ngModel)]="formsDdl" formControlName="fForm">
+            <select class="form-select form-control-sm" [(ngModel)]="formsDdl" formControlName="metadataFormForm">
               <option *ngFor="let form of forms" [value]="form.metadata.id">
                 {{ this.itemDescriptionFromList(form.metadata.id,
                 form.metadata.data) }}
@@ -86,44 +88,46 @@
         </div>
 
         <!-- Validations. -->
-        <div *ngIf="getDescription?.invalid && (getDescription?.dirty || getDescription?.touched)"
-          class="alert alert-danger mt-1" role="alert">
+        <div *ngIf="startValidation">
+          <div *ngIf="getDescription?.invalid && (getDescription?.dirty || getDescription?.touched)"
+            class="alert alert-danger mt-1" role="alert">
+            <div *ngIf="getDescription?.errors?.['required'] || getDescription?.errors?.['notOnlyWhitespace']">
+              Description is empty.</div>
+            <div *ngIf="getDescription?.errors?.['minlength']">Description must be at least 2 characters
+              long.</div>
+          </div>
 
-          <div *ngIf="getDescription?.errors?.['required']">Description is invalid.</div>
-          <div *ngIf="getDescription?.errors?.['minlength']">Description must be at least 2 characters
-            long.</div>
-        </div>
+          <div class="col-12" *ngIf="getArchitecture?.invalid && (getArchitecture?.dirty || getArchitecture?.touched)"
+            class="alert alert-danger mt-1" role="alert">
 
-        <div class="col-12" *ngIf="getArchitecture?.invalid && (getArchitecture?.dirty || getArchitecture?.touched)"
-          class="alert alert-danger mt-1" role="alert">
+            <div *ngIf="getArchitecture?.errors?.['min']">Architecture is invalid.</div>
+          </div>
 
-          <div *ngIf="getArchitecture?.errors?.['min']">Architecture is invalid.</div>
-        </div>
+          <div class="col-12" *ngIf="getDatabase?.invalid && (getDatabase?.dirty || getDatabase?.touched)"
+            class="alert alert-danger mt-1" role="alert">
 
-        <div class="col-12" *ngIf="getDatabase?.invalid && (getDatabase?.dirty || getDatabase?.touched)"
-          class="alert alert-danger mt-1" role="alert">
+            <div *ngIf="getDatabase?.errors?.['min']">Database is invalid.</div>
+          </div>
 
-          <div *ngIf="getDatabase?.errors?.['min']">Database is invalid.</div>
-        </div>
+          <div class="col-12"
+            *ngIf="getDatabaseEngineer?.invalid && (getDatabaseEngineer?.dirty || getDatabaseEngineer?.touched)"
+            class="alert alert-danger mt-1" role="alert">
 
-        <div class="col-12"
-          *ngIf="getDatabaseEngineer?.invalid && (getDatabaseEngineer?.dirty || getDatabaseEngineer?.touched)"
-          class="alert alert-danger mt-1" role="alert">
+            <div *ngIf="getDatabaseEngineer?.errors?.['min']">Database engineer is invalid.</div>
+          </div>
 
-          <div *ngIf="getDatabaseEngineer?.errors?.['min']">Database engineer is invalid.</div>
-        </div>
+          <div class="col-12"
+            *ngIf="getDevelopmentEnvironment?.invalid && (getDevelopmentEnvironment?.dirty || getDevelopmentEnvironment?.touched)"
+            class="alert alert-danger mt-1" role="alert">
 
-        <div class="col-12"
-          *ngIf="getDevelopmentEnvironment?.invalid && (getDevelopmentEnvironment?.dirty || getDevelopmentEnvironment?.touched)"
-          class="alert alert-danger mt-1" role="alert">
+            <div *ngIf="getDevelopmentEnvironment?.errors?.['min']">Development environment is invalid.</div>
+          </div>
 
-          <div *ngIf="getDevelopmentEnvironment?.errors?.['min']">Development environment is invalid.</div>
-        </div>
+          <div class="col-12" *ngIf="getForm?.invalid && (getForm?.dirty || getForm?.touched)"
+            class="alert alert-danger mt-1" role="alert">
 
-        <div class="col-12" *ngIf="getForm?.invalid && (getForm?.dirty || getForm?.touched)"
-          class="alert alert-danger mt-1" role="alert">
-
-          <div *ngIf="getForm?.errors?.['min']">Form is invalid.</div>
+            <div *ngIf="getForm?.errors?.['min']">Form is invalid.</div>
+          </div>
         </div>
         <!-- Validations. -->
       </div>

@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ApiResponse } from '../common/interface/apiresponse';
 import { MetadataForm } from '../common/class/metadataform';
 
@@ -44,9 +43,7 @@ export class MetadataService {
   }
 
   getMetadataArchitectures$(): Observable<ApiResponse[]> {
-    return this.httpClient.get<ApiResponse[]>(
-      this.baseUrlMetadata_architectures
-    );
+    return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_architectures);
   }
 
   getMetadataDatabases$(): Observable<ApiResponse[]> {
@@ -54,15 +51,11 @@ export class MetadataService {
   }
 
   getMetadataDatabasesEngineer$(): Observable<ApiResponse[]> {
-    return this.httpClient.get<ApiResponse[]>(
-      this.baseUrlMetadata_databasesEngineer
-    );
+    return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_databasesEngineer);
   }
 
   getMetadataDevelopmentEnvironment$(): Observable<ApiResponse[]> {
-    return this.httpClient.get<ApiResponse[]>(
-      this.baseUrlMetadata_developmentEnvironment
-    );
+    return this.httpClient.get<ApiResponse[]>(this.baseUrlMetadata_developmentEnvironment);
   }
 
   getMetadataForm$(): Observable<ApiResponse[]> {

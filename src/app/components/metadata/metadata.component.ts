@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Metadata } from 'src/app/common/class/metadata';
 import { MetadataForm } from 'src/app/common/class/metadataform';
 import { ApiResponse } from 'src/app/common/interface/apiresponse';
+import { MetadataValidation } from 'src/app/common/validators/metadatavalidation';
 import { MetadataService } from 'src/app/services/metadata.service';
 
 @Component({
@@ -16,32 +12,31 @@ import { MetadataService } from 'src/app/services/metadata.service';
   styleUrls: ['./metadata.component.css'],
 })
 export class MetadataComponent implements OnInit {
-  metadataFormGroup!: FormGroup;
-  title: Metadata = { id: 0, data: '' };
-  description: Metadata = { id: 0, data: '' };
-  architectures: ApiResponse[] = [];
-  databases: ApiResponse[] = [];
-  databasesEngineer: ApiResponse[] = [];
-  developmentEnvironments: ApiResponse[] = [];
-  forms: ApiResponse[] = [];
+  public metadataFormGroup!: FormGroup;
+  public title: Metadata = { id: 0, data: '' };
+  public description: Metadata = { id: 0, data: '' };
+  public architectures: ApiResponse[] = [];
+  public databases: ApiResponse[] = [];
+  public databasesEngineer: ApiResponse[] = [];
+  public developmentEnvironments: ApiResponse[] = [];
+  public forms: ApiResponse[] = [];
 
-  architecturesDdl: string = '';
-  databasesDdl: string = '';
-  databasesEngineerDdl: string = '';
-  developmentEnvironmentsDdl: string = '';
-  formsDdl: string = '';
+  public architecturesDdl: string = '';
+  public databasesDdl: string = '';
+  public databasesEngineerDdl: string = '';
+  public developmentEnvironmentsDdl: string = '';
+  public formsDdl: string = '';
 
-  fileContent: string | ArrayBuffer | null = '';
+  public fileContent: string | ArrayBuffer | null = '';
 
-  constructor(
-    private metadataService: MetadataService,
-    private formBuilder: FormBuilder
-  ) { }
+  public startValidation: boolean = false;
+
+  constructor(private metadataService: MetadataService,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.loadMetadata();
     this.createMetadataForm();
-
     this.initializeSelectedOptionDropDownList();
   }
 
@@ -55,31 +50,31 @@ export class MetadataComponent implements OnInit {
     this.metadataForms();
   }
 
-  metadataTitle() {
+  private metadataTitle() {
     this.metadataService.getMetadataTitle$().subscribe((response) => {
       this.title = response.metadata;
     });
   }
 
-  metadataDescription() {
+  private metadataDescription() {
     this.metadataService.getMetadataDescription$().subscribe((response) => {
       this.description = response.metadata;
     });
   }
 
-  metadataArchitectures() {
+  private metadataArchitectures() {
     this.metadataService.getMetadataArchitectures$().subscribe((response) => {
       this.architectures = response;
     });
   }
 
-  metadataDatabases() {
+  private metadataDatabases() {
     this.metadataService.getMetadataDatabases$().subscribe((response) => {
       this.databases = response;
     });
   }
 
-  metadataDatabasesEngineer() {
+  private metadataDatabasesEngineer() {
     this.metadataService
       .getMetadataDatabasesEngineer$()
       .subscribe((response) => {
@@ -87,7 +82,7 @@ export class MetadataComponent implements OnInit {
       });
   }
 
-  metadataDevelopmentEnvironments() {
+  private metadataDevelopmentEnvironments() {
     this.metadataService
       .getMetadataDevelopmentEnvironment$()
       .subscribe((response) => {
@@ -95,7 +90,7 @@ export class MetadataComponent implements OnInit {
       });
   }
 
-  metadataForms() {
+  private metadataForms() {
     this.metadataService
       .getMetadataDevelopmentEnvironment$()
       .subscribe((response) => {
@@ -103,7 +98,7 @@ export class MetadataComponent implements OnInit {
       });
   }
 
-  sendMetadata(file: File): void {
+  public sendMetadata(file: File): void {
     this.metadataService
       .sendMetadata(new MetadataForm('', '', 0, 0, 0, 0, 0, file))
       .subscribe({
@@ -116,35 +111,58 @@ export class MetadataComponent implements OnInit {
       });
   }
 
-  itemDescriptionFromList(itemId: number, itemData: string): string {
+  public itemDescriptionFromList(itemId: number, itemData: string): string {
     return itemId === 0 ? 'ITEMS' : itemData;
   }
 
-  createMetadataForm() {
-    this.metadataFormGroup = this.formBuilder.group({ metadata: this.formBuilder.group({
-      description: new FormControl('', [ Validators.required, Validators.minLength(2)]),
+  public createMetadataForm() {
+    this.metadataFormGroup = this.formBuilder.group({
+      metadata: this.formBuilder.group({
+        metadataFormDescription: new FormControl('',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            MetadataValidation.notOnlyWhitespace
+          ]),
       }),
       metadataItemList: this.formBuilder.group({
-        architecture: new FormControl('', [ Validators.required, Validators.min(1)]),
-        database: new FormControl('', [ Validators.required, Validators.min(1)]),
-        databaseEngineer: new FormControl('', [ Validators.required, Validators.min(1)]),
-        developmentEnvironment: new FormControl('', [Validators.required, Validators.min(1)]),
-        form: new FormControl('', [Validators.required, Validators.min(1)]),
+        metadataFormArchitecture: new FormControl('',
+          [
+            Validators.required, Validators.min(1)
+          ]),
+          metadataFormDatabase: new FormControl('',
+          [
+            Validators.required, Validators.min(1)
+          ]),
+          metadataFormDatabaseEngineer: new FormControl('',
+          [
+            Validators.required, Validators.min(1)
+          ]),
+          metadataFormDevelopmentEnvironment: new FormControl('',
+          [
+            Validators.required, Validators.min(1)
+          ]),
+          metadataFormForm: new FormControl('',
+          [
+            Validators.required,
+            Validators.min(1)
+          ]),
       }),
     });
   }
 
-  get getDescription() { return this.metadataFormGroup.get('metadata.description'); }
-  get getArchitecture() { return this.metadataFormGroup.get('metadataItemList.architecture'); }
-  get getDatabase() { return this.metadataFormGroup.get('metadataItemList.database'); }
-  get getDatabaseEngineer() { return this.metadataFormGroup.get('metadataItemList.databaseEngineer'); }
-  get getDevelopmentEnvironment() { return this.metadataFormGroup.get( 'metadataItemList.developmentEnvironment'); }
-  get getForm() { return this.metadataFormGroup.get('metadataItemList.form'); }
+  get getDescription() { return this.metadataFormGroup.get('metadata.metadataFormDescription'); }
+  get getArchitecture() { return this.metadataFormGroup.get('metadataItemList.metadataFormArchitecture'); }
+  get getDatabase() { return this.metadataFormGroup.get('metadataItemList.metadataFormDatabase'); }
+  get getDatabaseEngineer() { return this.metadataFormGroup.get('metadataItemList.metadataFormDatabaseEngineer'); }
+  get getDevelopmentEnvironment() { return this.metadataFormGroup.get('metadataItemList.metadataFormDevelopmentEnvironment'); }
+  get getForm() { return this.metadataFormGroup.get('metadataItemList.metadataFormForm'); }
 
-  metadataFormSubmit() {
+  public metadataFormSubmit() {
     console.log('Form here');
 
     if (this.metadataFormGroup.invalid) {
+      this.startValidation = true;
       this.metadataFormGroup.markAllAsTouched();
     } else {
       console.log(this.metadataFormGroup.get('metadata')?.value);
@@ -152,7 +170,7 @@ export class MetadataComponent implements OnInit {
     }
   }
 
-  initializeSelectedOptionDropDownList() {
+  private initializeSelectedOptionDropDownList() {
     this.architecturesDdl = '0';
     this.databasesDdl = '0';
     this.databasesEngineerDdl = '0';
@@ -160,7 +178,7 @@ export class MetadataComponent implements OnInit {
     this.formsDdl = '0';
   }
 
-  onFileSelected(event: any) {
+  public onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
       const reader = new FileReader();
