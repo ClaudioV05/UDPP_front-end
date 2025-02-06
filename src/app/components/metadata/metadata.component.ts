@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Metadata } from 'src/app/common/class/metadata';
 import { MetadataForm } from 'src/app/common/class/metadataform';
@@ -32,12 +32,17 @@ export class MetadataComponent implements OnInit {
   public startValidation: boolean = false;
 
   constructor(private metadataService: MetadataService,
-    private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private changeDetector : ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.loadMetadata();
     this.createMetadataForm();
     this.initializeSelectedOptionDropDownList();
+  }
+
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges();
   }
 
   loadMetadata() {
@@ -191,4 +196,6 @@ export class MetadataComponent implements OnInit {
       reader.readAsText(file);
     }
   }
+
+  
 }
