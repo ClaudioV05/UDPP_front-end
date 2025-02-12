@@ -40,7 +40,7 @@ export class MetadataComponent implements OnInit {
     this.changeDetector.detectChanges();
   }
 
-  loadMetadata() {
+  loadMetadata(): void {
     this.metadataTitle();
     this.metadataDescription();
     this.metadataArchitectures();
@@ -50,53 +50,47 @@ export class MetadataComponent implements OnInit {
     this.metadataForms();
   }
 
-  private metadataTitle() {
+  private metadataTitle(): void {
     this.metadataService.getMetadataTitle$().subscribe((response) => {
       this.title = response.metadata;
     });
   }
 
-  private metadataDescription() {
+  private metadataDescription(): void {
     this.metadataService.getMetadataDescription$().subscribe((response) => {
       this.description = response.metadata;
       //this.metadataFormGroup.patchValue({ metadataFormDescription: response });
     });
   }
 
-  private metadataArchitectures() {
+  private metadataArchitectures(): void {
     this.metadataService.getMetadataArchitectures$().subscribe((response) => {
       this.architectures = response;
     });
   }
 
-  private metadataDatabases() {
+  private metadataDatabases(): void {
     this.metadataService.getMetadataDatabases$().subscribe((response) => {
       this.databases = response;
     });
   }
 
-  private metadataDatabasesEngineer() {
-    this.metadataService
-      .getMetadataDatabasesEngineer$()
-      .subscribe((response) => {
-        this.databasesEngineer = response;
-      });
+  private metadataDatabasesEngineer(): void {
+    this.metadataService.getMetadataDatabasesEngineer$().subscribe((response) => {
+      this.databasesEngineer = response;
+    });
   }
 
-  private metadataDevelopmentEnvironments() {
-    this.metadataService
-      .getMetadataDevelopmentEnvironment$()
-      .subscribe((response) => {
-        this.developmentEnvironments = response;
-      });
+  private metadataDevelopmentEnvironments(): void {
+    this.metadataService.getMetadataDevelopmentEnvironment$().subscribe((response) => {
+      this.developmentEnvironments = response;
+    });
   }
 
-  private metadataForms() {
-    this.metadataService
-      .getMetadataDevelopmentEnvironment$()
-      .subscribe((response) => {
-        this.forms = response;
-      });
+  private metadataForms(): void {
+    this.metadataService.getMetadataDevelopmentEnvironment$().subscribe((response) => {
+      this.forms = response;
+    });
   }
 
   public sendMetadata(file: File): void {
@@ -116,7 +110,7 @@ export class MetadataComponent implements OnInit {
     return itemId === 0 ? 'ITEMS' : itemData;
   }
 
-  public createMetadataForm() {
+  public createMetadataForm(): void {
     let formInitialValue: string = '0';
 
     this.metadataFormGroup = this.formBuilder.group({
@@ -140,7 +134,7 @@ export class MetadataComponent implements OnInit {
   get getDevelopmentEnvironment() { return this.metadataFormGroup.get('metadataItemList.metadataFormDevelopmentEnvironment'); }
   get getForm() { return this.metadataFormGroup.get('metadataItemList.metadataFormForm'); }
 
-  public metadataFormSubmit() {
+  public metadataFormSubmit(): void {
     console.log('Form here');
 
     if (this.metadataFormGroup.invalid) {
@@ -152,7 +146,7 @@ export class MetadataComponent implements OnInit {
     }
   }
 
-  public onFileSelected(event: any) {
+  public onFileSelected(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -164,6 +158,4 @@ export class MetadataComponent implements OnInit {
       reader.readAsText(file);
     }
   }
-
-
 }
