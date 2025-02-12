@@ -1,6 +1,12 @@
 import { FormControl, ValidationErrors } from "@angular/forms";
 
+/**
+    * The Metadata validation.
+    */
 export class MetadataValidation {
+    /**
+    * Not only white space.
+    */
     public static notOnlyWhitespace(control: FormControl): ValidationErrors {
         if ((control.value != null && control.value != undefined) && (control.value.trim().length === 0)) {
             return { 'notOnlyWhiteSpace': true };
@@ -10,6 +16,9 @@ export class MetadataValidation {
         }
     }
 
+    /**
+    * Text contains inicial value.
+    */
     public static textContainsInicialValue(control: FormControl): ValidationErrors {
         if ((control.value != null && control.value != undefined) && (control.value.includes('This program generates'))) {
             return { 'textContainsInicialValue': true };
@@ -17,7 +26,5 @@ export class MetadataValidation {
         else {
             return {};
         }
-
-        return {};
     }
 }

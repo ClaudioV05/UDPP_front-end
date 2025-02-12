@@ -31,9 +31,11 @@ export class MetadataComponent implements OnInit {
 
   public startValidation: boolean = false;
 
-  constructor(private metadataService: MetadataService,
-              private formBuilder: FormBuilder,
-              private changeDetector : ChangeDetectorRef) { }
+  constructor(
+    private metadataService: MetadataService,
+    private formBuilder: FormBuilder,
+    private changeDetector: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.loadMetadata();
@@ -70,6 +72,9 @@ export class MetadataComponent implements OnInit {
   private metadataArchitectures() {
     this.metadataService.getMetadataArchitectures$().subscribe((response) => {
       this.architectures = response;
+      /*this.metadataFormGroup.patchValue({
+        metadataFormArchitecture: response
+      });*/
     });
   }
 
@@ -123,7 +128,8 @@ export class MetadataComponent implements OnInit {
   public createMetadataForm() {
     this.metadataFormGroup = this.formBuilder.group({
       metadata: this.formBuilder.group({
-        metadataFormDescription: new FormControl('',
+        metadataFormDescription: new FormControl(
+          '',
           [
             Validators.required,
             Validators.minLength(2),
@@ -132,23 +138,27 @@ export class MetadataComponent implements OnInit {
           ]),
       }),
       metadataItemList: this.formBuilder.group({
-        metadataFormArchitecture: new FormControl('',
+        metadataFormArchitecture: new FormControl(
+          null,
           [
             Validators.required, Validators.min(1)
           ]),
-        metadataFormDatabase: new FormControl('',
+        metadataFormDatabase: new FormControl(
+          null,
           [
             Validators.required, Validators.min(1)
           ]),
-        metadataFormDatabaseEngineer: new FormControl('',
+        metadataFormDatabaseEngineer: new FormControl(
+          null,
           [
             Validators.required, Validators.min(1)
           ]),
-        metadataFormDevelopmentEnvironment: new FormControl('',
+        metadataFormDevelopmentEnvironment: new FormControl(
+          null,
           [
             Validators.required, Validators.min(1)
           ]),
-        metadataFormForm: new FormControl('',
+        metadataFormForm: new FormControl(null,
           [
             Validators.required,
             Validators.min(1)
@@ -197,5 +207,5 @@ export class MetadataComponent implements OnInit {
     }
   }
 
-  
+
 }

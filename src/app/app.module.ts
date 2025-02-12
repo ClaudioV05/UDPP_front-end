@@ -19,7 +19,7 @@ import { MetafieldComponent } from './components/metafield/metafield.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'always' })
   ],
   providers: [MetadataService],
   bootstrap: [AppComponent]
