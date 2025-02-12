@@ -31,54 +31,42 @@
       <div class="row">
 
         <div class="col-2">
-          <div *ngIf="architectures.length > 0">
-            <select class="form-select form-control-sm" 
-              formControlName="metadataFormArchitecture">
-              <option *ngFor="let architecture of architectures" [value]="architecture.metadata.id">
-                {{ this.itemDescriptionFromList(architecture.metadata.id, architecture.metadata.data) }}
-              </option>
-            </select>
-          </div>
+          <select class="form-select form-control-sm" formControlName="metadataFormArchitecture">
+            <option *ngFor="let architecture of architectures" [value]="architecture.metadata.id">
+              {{ this.itemDescriptionFromList(architecture.metadata.id, architecture.metadata.data) }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-2">
+          <select class="form-select form-control-sm" formControlName="metadataFormDatabase">
+            <option *ngFor="let database of databases" [value]="database.metadata.id">
+              {{ this.itemDescriptionFromList(database.metadata.id, database.metadata.data) }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-2">
+          <select class="form-select form-control-sm" formControlName="metadataFormDatabaseEngineer">
+            <option *ngFor="let databaseEngineer of databasesEngineer" [value]="databaseEngineer.metadata.id">
+              {{ this.itemDescriptionFromList(databaseEngineer.metadata.id, databaseEngineer.metadata.data) }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-2">
+          <select class="form-select form-control-sm" formControlName="metadataFormDevelopmentEnvironment">
+            <option *ngFor="let developmentEnvironment of developmentEnvironments"
+              [value]="developmentEnvironment.metadata.id">
+              {{ this.itemDescriptionFromList(developmentEnvironment.metadata.id,
+              developmentEnvironment.metadata.data) }}
+            </option>
+          </select>
         </div>
 
         <div class="col-2">
           <div *ngIf="databases.length > 0">
-            <select class="form-select form-control-sm" [(ngModel)]="databasesDdl"
-              formControlName="metadataFormDatabase">
-              <option *ngFor="let database of databases" [value]="database.metadata.id">
-                {{ this.itemDescriptionFromList(database.metadata.id, database.metadata.data) }}
-              </option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-2">
-          <div *ngIf="databasesEngineer.length > 0">
-            <select class="form-select form-control-sm" [(ngModel)]="databasesEngineerDdl"
-              formControlName="metadataFormDatabaseEngineer">
-              <option *ngFor="let databaseEngineer of databasesEngineer" [value]="databaseEngineer.metadata.id">
-                {{ this.itemDescriptionFromList(databaseEngineer.metadata.id, databaseEngineer.metadata.data) }}
-              </option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-2">
-          <div *ngIf="databases.length > 0">
-            <select class="form-select form-control-sm" [(ngModel)]="developmentEnvironmentsDdl"
-              formControlName="metadataFormDevelopmentEnvironment">
-              <option *ngFor="let developmentEnvironment of developmentEnvironments"
-                [value]="developmentEnvironment.metadata.id">
-                {{ this.itemDescriptionFromList(developmentEnvironment.metadata.id,
-                developmentEnvironment.metadata.data) }}
-              </option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-2">
-          <div *ngIf="databases.length > 0">
-            <select class="form-select form-control-sm" [(ngModel)]="formsDdl" formControlName="metadataFormForm">
+            <select class="form-select form-control-sm" formControlName="metadataFormForm">
               <option *ngFor="let form of forms" [value]="form.metadata.id">
                 {{ this.itemDescriptionFromList(form.metadata.id,
                 form.metadata.data) }}

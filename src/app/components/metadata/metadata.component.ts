@@ -21,12 +21,6 @@ export class MetadataComponent implements OnInit {
   public developmentEnvironments: ApiResponse[] = [];
   public forms: ApiResponse[] = [];
 
-  public architecturesDdl: string = '';
-  public databasesDdl: string = '';
-  public databasesEngineerDdl: string = '';
-  public developmentEnvironmentsDdl: string = '';
-  public formsDdl: string = '';
-
   public fileContent: string | ArrayBuffer | null = '';
 
   public startValidation: boolean = false;
@@ -40,7 +34,6 @@ export class MetadataComponent implements OnInit {
   ngOnInit(): void {
     this.loadMetadata();
     this.createMetadataForm();
-    this.initializeSelectedOptionDropDownList();
   }
 
   ngAfterContentChecked(): void {
@@ -66,15 +59,13 @@ export class MetadataComponent implements OnInit {
   private metadataDescription() {
     this.metadataService.getMetadataDescription$().subscribe((response) => {
       this.description = response.metadata;
+      //this.metadataFormGroup.patchValue({ metadataFormDescription: response });
     });
   }
 
   private metadataArchitectures() {
     this.metadataService.getMetadataArchitectures$().subscribe((response) => {
       this.architectures = response;
-      /*this.metadataFormGroup.patchValue({
-        metadataFormArchitecture: response
-      });*/
     });
   }
 
@@ -126,43 +117,18 @@ export class MetadataComponent implements OnInit {
   }
 
   public createMetadataForm() {
+    let formInitialValue: string = '0';
+
     this.metadataFormGroup = this.formBuilder.group({
       metadata: this.formBuilder.group({
-        metadataFormDescription: new FormControl(
-          '',
-          [
-            Validators.required,
-            Validators.minLength(2),
-            MetadataValidation.notOnlyWhitespace,
-            MetadataValidation.textContainsInicialValue
-          ]),
+        metadataFormDescription: new FormControl('', [Validators.required, Validators.minLength(2), MetadataValidation.notOnlyWhitespace, MetadataValidation.textContainsInicialValue]),
       }),
       metadataItemList: this.formBuilder.group({
-        metadataFormArchitecture: new FormControl(
-          null,
-          [
-            Validators.required, Validators.min(1)
-          ]),
-        metadataFormDatabase: new FormControl(
-          null,
-          [
-            Validators.required, Validators.min(1)
-          ]),
-        metadataFormDatabaseEngineer: new FormControl(
-          null,
-          [
-            Validators.required, Validators.min(1)
-          ]),
-        metadataFormDevelopmentEnvironment: new FormControl(
-          null,
-          [
-            Validators.required, Validators.min(1)
-          ]),
-        metadataFormForm: new FormControl(null,
-          [
-            Validators.required,
-            Validators.min(1)
-          ]),
+        metadataFormArchitecture: new FormControl(formInitialValue, [Validators.required, Validators.min(1)]),
+        metadataFormDatabase: new FormControl(formInitialValue, [Validators.required, Validators.min(1)]),
+        metadataFormDatabaseEngineer: new FormControl(formInitialValue, [Validators.required, Validators.min(1)]),
+        metadataFormDevelopmentEnvironment: new FormControl(formInitialValue, [Validators.required, Validators.min(1)]),
+        metadataFormForm: new FormControl(formInitialValue, [Validators.required, Validators.min(1)]),
       }),
     });
   }
@@ -184,14 +150,6 @@ export class MetadataComponent implements OnInit {
       console.log(this.metadataFormGroup.get('metadata')?.value);
       console.log(this.metadataFormGroup.get('metadataItemList')?.value);
     }
-  }
-
-  private initializeSelectedOptionDropDownList() {
-    this.architecturesDdl = '0';
-    this.databasesDdl = '0';
-    this.databasesEngineerDdl = '0';
-    this.developmentEnvironmentsDdl = '0';
-    this.formsDdl = '0';
   }
 
   public onFileSelected(event: any) {
